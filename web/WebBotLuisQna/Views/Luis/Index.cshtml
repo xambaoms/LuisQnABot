@@ -1,0 +1,50 @@
+﻿@model IEnumerable<CoreBotLuisQna.Table.Luis.LuisEntity>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>QnA</th>
+            <th>
+                @Html.DisplayNameFor(model => model.AppId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ApiKey)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.ActionLink("QnA", "Index", new { controller="QnA", id = item.AppId }, new { @class = "btn btn-success" }) |
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AppId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApiKey)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.AppId }, new { @class = "btn btn-primary" }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.AppId }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

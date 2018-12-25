@@ -1,0 +1,66 @@
+﻿@model IEnumerable<CoreBotLuisQna.Table.Luis.QnAKBEntity>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+<div class="alert alert-success" role="alert">
+    <h4 class="alert-heading">Luis</h4>
+    <p>
+        @ViewBag.LuisEntity.Nome
+    </p>
+    
+</div>
+<p>
+    <a asp-action="Create" asp-route-id="@ViewBag.LuisEntity.AppId" class="btn btn-primary">Create New</a>
+    <a asp-action="Index" asp-controller="Luis" class="btn btn-default">Back</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LuisIntent)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QnAKBNome)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.QnADomain)
+            </th>
+         
+            <th>
+                @Html.DisplayNameFor(model => model.QnAKBID)
+            </th>
+
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LuisIntent)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QnAKBNome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QnADomain)
+            </td>
+      
+            <td>
+                @Html.DisplayFor(modelItem => item.QnAKBID)
+            </td>
+
+
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.QnAKBID, luisID=item.PartitionKey }, new { @class = "btn btn-primary" }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.QnAKBID, luisID = item.PartitionKey }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

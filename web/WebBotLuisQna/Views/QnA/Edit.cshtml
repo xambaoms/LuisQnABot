@@ -1,0 +1,65 @@
+﻿@model CoreBotLuisQna.Table.Luis.QnAKBEntity
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+<div class="alert alert-success" role="alert">
+    <h4 class="alert-heading">Luis</h4>
+    <p>
+        @ViewBag.LuisEntity.Nome
+    </p>
+
+</div>
+<h4>QnAKBEntity</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">LuisId</label>
+                <input asp-for="PartitionKey" class="form-control" readonly="readonly" />
+                <span asp-validation-for="PartitionKey" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="QnAKBID" class="control-label"></label>
+                <input asp-for="QnAKBID" class="form-control" readonly="readonly" />
+                <span asp-validation-for="QnAKBID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LuisIntent" class="control-label"></label>
+                <input asp-for="LuisIntent" class="form-control" />
+                <span asp-validation-for="LuisIntent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="QnAKBNome" class="control-label"></label>
+                <input asp-for="QnAKBNome" class="form-control" />
+                <span asp-validation-for="QnAKBNome" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="QnADomain" class="control-label"></label>
+                <input asp-for="QnADomain" class="form-control" />
+                <span asp-validation-for="QnADomain" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="QnAEndPointKey" class="control-label"></label>
+                <input asp-for="QnAEndPointKey" class="form-control" />
+                <span asp-validation-for="QnAEndPointKey" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <a asp-action="Index" asp-route-id="@ViewBag.LuisEntity.AppId" class="btn btn-default">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

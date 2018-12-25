@@ -1,0 +1,18 @@
+{
+    "name": "Web-Bot",
+    "description": "",
+    "services": [
+        {
+            "type": "endpoint",
+            "appId": "ac460f88-70b3-4a80-a203-e8dedf24f9c3",
+            "appPassword": "PGypF1+bD#+Tw|K{",
+            "endpoint": "http://localhost:3984/api/messages",
+            "id": "41058be0-0788-11e9-922b-d1c1f939375c",
+            "name": "http://localhost:3984/api/messages"
+        }
+    ],
+    "padlock": "",
+    "version": "2.0",
+    "overrides": null,
+    "path": "C:\\Users\\alsi\\source\\repos\\BotLuisQnA\\web-bot-megasena-src\\Web-Bot.bot"
+}

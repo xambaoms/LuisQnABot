@@ -22,7 +22,7 @@ namespace WebBotLuisQna.Controllers
 
         public async Task<IActionResult> Index()
         {
-            await _tableWrapper.CreateIfNotExists();
+          
 
             var resut = await _tableWrapper.List<LuisEntity>(LuisEntity.STR_PARTITION_KEY);
 

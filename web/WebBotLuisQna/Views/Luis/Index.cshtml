@@ -23,13 +23,14 @@
                 @Html.DisplayNameFor(model => model.ApiKey)
             </th>
             <th></th>
+            <th>Log</th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.ActionLink("QnA", "Index", new { controller="QnA", id = item.AppId }, new { @class = "btn btn-success" }) |
+                @Html.ActionLink("QnA", "Index", new { controller = "QnA", id = item.AppId }, new { @class = "btn btn-success" })
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AppId)
@@ -43,6 +44,9 @@
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.AppId }, new { @class = "btn btn-primary" }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.AppId }, new { @class = "btn btn-danger" })
+            </td>
+            <td>
+                @Html.ActionLink("Log", "Index", new { controller = "Log", id = item.AppId }, new { @class = "btn btn-warning" })
             </td>
         </tr>
 }

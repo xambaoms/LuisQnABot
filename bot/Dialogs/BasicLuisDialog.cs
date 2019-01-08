@@ -16,20 +16,20 @@ namespace Microsoft.Bot.Sample.LuisBot
     public class BasicLuisDialog : LuisDialog<object>
     {
         // LUIS Settings
-        static string LUIS_appId = "";
-        static string LUIS_apiKey = "";
+        static string LUIS_appId = "fda23a32-eda2-47cf-abd6-27eedf840dc7";
+        static string LUIS_apiKey = "b9a97aee1b4d424dacbc503d1a593e4e";
         static string LUIS_hostRegion = "westus.api.cognitive.microsoft.com";
     
         // QnA Maker global settings
         // assumes all KBs are created with same Azure service
-        static string qnamaker_endpointKey = "";
-        static string qnamaker_endpointDomain = "";
+        static string qnamaker_endpointKey = "cad67ee3-6cda-4daf-82ba-4dd1cdf003ca";
+        static string qnamaker_endpointDomain = "qna-megasena";
     
         // QnA Maker Human Resources Knowledge base
-        static string HR_kbID = "";
+        static string HR_kbID = "170e745f-e858-4488-ba07-30c88ddb7936";
     
         // QnA Maker Finance Knowledge base
-        static string Finance_kbID = "";
+        static string Finance_kbID = "d42789b1-1da4-466b-96c3-74f5db3f12c3";
     
         // Instantiate the knowledge bases
         public QnAMakerService hrQnAService = new QnAMakerService("https://" + qnamaker_endpointDomain + ".azurewebsites.net", HR_kbID, qnamaker_endpointKey);

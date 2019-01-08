@@ -11,11 +11,13 @@ namespace CoreBotLuisQna.Table
     public class TableWrapper : ITableWrapper
     {
 
-        public static string STR_TABLE_NAME = "luisqnabottable";
+        //private string STR_TABLE_NAME = "luisqnabottable";
 
         private CloudStorageAccount storageAccount;
         private CloudTableClient tableClient;
         private CloudTable table;
+
+        public TableWrapper() { }
 
         public TableWrapper(string azureStorageConnectionString)
         {
@@ -23,25 +25,30 @@ namespace CoreBotLuisQna.Table
 
             tableClient = storageAccount.CreateCloudTableClient();
 
-            table = tableClient.GetTableReference(STR_TABLE_NAME);
-
         }
-
-        public Task<bool> CreateIfNotExists()
+        private void CreateIfNotExists<T>() where T : TableEntity
         {
-            return table.CreateIfNotExistsAsync();
+            var type = typeof(T);
+            table = tableClient.GetTableReference(type.Name);
+            table.CreateIfNotExistsAsync();
         }
 
         public Task<IList<TableResult>> Insert<T>(T entity) where T : TableEntity
         {
+            CreateIfNotExists<T>();
+
             TableBatchOperation batchOperation = new TableBatchOperation();
             batchOperation.Insert(entity);
 
             return table.ExecuteBatchAsync(batchOperation);
         }
 
+
+
         public async Task<T> Get<T>(string partitionKey, string rowKey) where T : TableEntity
         {
+            CreateIfNotExists<T>();
+
             TableOperation retrieveOperation = TableOperation.Retrieve<T>(partitionKey, rowKey);
 
             TableResult result = await table.ExecuteAsync(retrieveOperation);
@@ -51,6 +58,8 @@ namespace CoreBotLuisQna.Table
 
         public async Task<List<T>> List<T>(string partitionKey) where T : TableEntity, new()
         {
+            CreateIfNotExists<T>();
+
             TableQuery<T> query =
                 new TableQuery<T>()
                 .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, partitionKey));
@@ -73,6 +82,8 @@ namespace CoreBotLuisQna.Table
 
         public Task<TableResult> Delete<T>(T entity) where T : TableEntity
         {
+            CreateIfNotExists<T>();
+
             entity.ETag = "*";
 
             TableOperation deleteOperation = TableOperation.Delete(entity);

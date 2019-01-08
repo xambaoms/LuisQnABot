@@ -6,7 +6,7 @@ namespace CoreBotLuisQna.Table
 {
     public interface ITableWrapper
     {
-        Task<bool> CreateIfNotExists();
+       
         Task<TableResult> Delete<T>(T entity) where T : TableEntity;
         Task<T> Get<T>(string partitionKey, string rowKey) where T : TableEntity;
         Task<IList<TableResult>> Insert<T>(T entity) where T : TableEntity;

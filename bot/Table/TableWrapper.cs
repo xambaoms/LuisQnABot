@@ -12,7 +12,7 @@ namespace LuisBot.Table
     public class TableWrapper : ITableWrapper
     {
 
-        public static string STR_TABLE_NAME = "luisqnabottable";
+        //private string STR_TABLE_NAME = "luisqnabottable";
 
         private CloudStorageAccount storageAccount;
         private CloudTableClient tableClient;
@@ -25,26 +25,31 @@ namespace LuisBot.Table
             storageAccount = CloudStorageAccount.Parse(azureStorageConnectionString);
 
             tableClient = storageAccount.CreateCloudTableClient();
-
-            table = tableClient.GetTableReference(STR_TABLE_NAME);
-
+            
+        }
+        private void CreateIfNotExists<T>() where T : TableEntity
+        {
+            var type = typeof(T);
+            table = tableClient.GetTableReference(type.Name);
+            table.CreateIfNotExistsAsync();
         }
 
-        public Task<bool> CreateIfNotExists()
+        public  Task<IList<TableResult>> Insert<T>(T entity) where T : TableEntity
         {
-            return table.CreateIfNotExistsAsync();
-        }
+            CreateIfNotExists<T>();
 
-        public Task<IList<TableResult>> Insert<T>(T entity) where T : TableEntity
-        {
             TableBatchOperation batchOperation = new TableBatchOperation();
             batchOperation.Insert(entity);
 
             return table.ExecuteBatchAsync(batchOperation);
         }
 
+     
+
         public async Task<T> Get<T>(string partitionKey, string rowKey) where T : TableEntity
         {
+            CreateIfNotExists<T>();
+
             TableOperation retrieveOperation = TableOperation.Retrieve<T>(partitionKey, rowKey);
 
             TableResult result = await table.ExecuteAsync(retrieveOperation);
@@ -54,6 +59,8 @@ namespace LuisBot.Table
 
         public async Task<List<T>> List<T>(string partitionKey) where T : TableEntity, new()
         {
+            CreateIfNotExists<T>();
+
             TableQuery<T> query =
                 new TableQuery<T>()
                 .Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, partitionKey));
@@ -76,6 +83,8 @@ namespace LuisBot.Table
 
         public Task<TableResult> Delete<T>(T entity) where T : TableEntity
         {
+            CreateIfNotExists<T>();
+
             entity.ETag = "*";
 
             TableOperation deleteOperation = TableOperation.Delete(entity);

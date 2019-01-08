@@ -29,7 +29,7 @@ namespace WebBotLuisQna.Controllers
 
         public async Task<IActionResult> Index(string id)
         {
-            await _tableWrapper.CreateIfNotExists();
+            
 
             var resut = await _tableWrapper.List<QnAKBEntity>(id);
 

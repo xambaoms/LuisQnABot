@@ -20,7 +20,7 @@ namespace LuisBot.Dialogs
 
         //Wrapper que trata a tabela
         private readonly ITableWrapper table;
-        
+
         /// <summary>
         /// ctor
         /// </summary>
@@ -57,7 +57,7 @@ namespace LuisBot.Dialogs
         /// Dicionario com todas as bases QnA desse LUIS
         /// </summary>
         public Dictionary<string, QnAMakerService> QnaService { get; set; }
-        
+
         /// <summary>
         /// Inicializador do gerenciador do LUIS
         /// </summary>
@@ -93,17 +93,25 @@ namespace LuisBot.Dialogs
             //percorre a lista de KBs
             foreach (var luisKB in luisKBs)
             {
-                //Adiciona ao dicionario os servicos
-                QnaService.Add
-                (
-                    luisKB.LuisIntent,
-                    new QnAMakerService
+                try
+                {
+                    //Adiciona ao dicionario os servicos
+                    QnaService.Add
                     (
-                        "https://" + luisKB.QnADomain + ".azurewebsites.net",
-                        luisKB.QnAKBID,
-                        luisKB.QnAEndPointKey
-                    )
-                );
+                        luisKB.LuisIntent,
+                        new QnAMakerService
+                        (
+                            "https://" + luisKB.QnADomain + ".azurewebsites.net",
+                            luisKB.QnAKBID,
+                            luisKB.QnAEndPointKey
+                        )
+                    );
+                }
+                catch (Exception)
+                {
+
+                    await table.Delete<QnAKBEntity>(luisKB);
+                }
             }
         }
     }

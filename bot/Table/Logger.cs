@@ -48,8 +48,8 @@ namespace LuisBot.Table
 
 
         public async Task LogarLuisQna(  string luisAppID, 
-                            IDialogContext context, 
-                            LuisResult result, 
+                            object context, 
+                            object result, 
                             string qnaMakerAnswer)
         {            
             try
@@ -64,7 +64,8 @@ namespace LuisBot.Table
 
                 if (!String.IsNullOrWhiteSpace(qnaMakerAnswer))
                     log.QnAResult = qnaMakerAnswer;
-                await table.Insert<LogEntity>(log);
+                await table.Insert(log);
+                log = null;
             }
             catch (Exception)
             {

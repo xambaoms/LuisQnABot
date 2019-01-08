@@ -15,7 +15,7 @@ namespace LuisBot.Table
         {
             PartitionKey = luisAppID;
             RowKey = Guid.NewGuid().ToString();
-
+            Id = RowKey;
             Data = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss,ffff");
 
         }

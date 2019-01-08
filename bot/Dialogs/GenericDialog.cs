@@ -73,13 +73,13 @@ namespace LuisBot.Dialogs
             }
 
             //registra o Log
-            //await Logger.Instance.LogarLuisQna
-            //    (
-            //        LuisAppId,
-            //        context,
-            //        result,
-            //        qnaMakerAnswer
-            //    );
+            await Logger.Instance.LogarLuisQna
+                (
+                    LuisAppId,
+                    context,
+                    result,
+                    qnaMakerAnswer
+                );
         }
 
 

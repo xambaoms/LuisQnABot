@@ -39,22 +39,15 @@ namespace LuisBot.Dialogs
                 return await response.Content.ReadAsStringAsync();
             }
         }
-        public async Task<string> GetAnswer(string question)
+        public async Task<QnAAnswer> GetAnswer(string question)
         {
             string uri = qnaServiceHostName + "/qnamaker/knowledgebases/" + knowledgeBaseId + "/generateAnswer";
             string questionJSON = @"{'question': '" + question + "'}";
 
             var response = await Post(uri, questionJSON);
 
-            var answers = JsonConvert.DeserializeObject<QnAAnswer>(response);
-            if (answers.answers.Count > 0)
-            {
-                return answers.answers[0].answer;
-            }
-            else
-            {
-                return "No good match found.";
-            }
+            return JsonConvert.DeserializeObject<QnAAnswer>(response);
+            
         }
     }
 

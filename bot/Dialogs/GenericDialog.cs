@@ -42,7 +42,7 @@ namespace LuisBot.Dialogs
         public async Task GenericIntent(IDialogContext context, LuisResult result)
         {
             //resposta do Qna
-            string qnaMakerAnswer = string.Empty;
+            QnAAnswer qnAAnswer = null;            
 
             //variavel de controle do intent 
             string intent = String.Empty;
@@ -58,8 +58,17 @@ namespace LuisBot.Dialogs
                 var qnaService = QnaServices[intent];
 
                 //recupera a respost do servico de QnA
-                qnaMakerAnswer = await qnaService.GetAnswer(result.Query);
+                qnAAnswer = await qnaService.GetAnswer(result.Query);
 
+                //seta a resposta padrao 
+                string qnaMakerAnswer = "Nenhum resultado foi encontrado.";
+
+                //verifica se existe resposta do Qna
+                if (qnAAnswer.answers.Count > 0)
+                {
+                    qnaMakerAnswer = qnAAnswer.answers[0].answer;
+                }
+              
                 //Retorna a resposta
                 await context.PostAsync($"{qnaMakerAnswer}");
 
@@ -78,7 +87,7 @@ namespace LuisBot.Dialogs
                     LuisAppId,
                     context,
                     result,
-                    qnaMakerAnswer
+                    qnAAnswer
                 );
         }
 

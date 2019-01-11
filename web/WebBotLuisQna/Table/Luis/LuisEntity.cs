@@ -34,6 +34,6 @@ namespace CoreBotLuisQna.Table.Luis
 
         public string HostRegion { get; set; }
 
-
+        public string URL { get; set; }
     }
 }

@@ -27,28 +27,31 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.ActionLink("QnA", "Index", new { controller = "QnA", id = item.AppId }, new { @class = "btn btn-success" })
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AppId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ApiKey)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.AppId }, new { @class = "btn btn-primary" }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.AppId }, new { @class = "btn btn-danger" })
-            </td>
-            <td>
-                @Html.ActionLink("Log", "Index", new { controller = "Log", id = item.AppId }, new { @class = "btn btn-warning" })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink("QnA", "Index", new { controller = "QnA", id = item.AppId }, new { @class = "btn btn-success" })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AppId)
+                </td>
+                <td>
+                    <a href="@item.URL" target="_blank">
+                        @Html.DisplayFor(modelItem => item.Nome)
+                    </a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ApiKey)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.AppId }, new { @class = "btn btn-primary" }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.AppId }, new { @class = "btn btn-danger" })
+                </td>
+                <td>
+                    @Html.ActionLink("Log", "Index", new { controller = "Log", id = item.AppId }, new { @class = "btn btn-warning" })
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

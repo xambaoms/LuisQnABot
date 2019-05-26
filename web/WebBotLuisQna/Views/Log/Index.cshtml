@@ -1,0 +1,61 @@
+﻿@model IEnumerable<WebBotLuisQna.Table.Luis.LogEntity>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+<div class="alert alert-success" role="alert">
+    <h4 class="alert-heading">Luis</h4>
+    <p>
+        @ViewBag.LuisEntity.Nome
+    </p>
+
+</div>
+<p>
+    <a asp-action="Index" asp-controller="Luis" class="btn btn-default">Back</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+           
+            <th>
+                @Html.DisplayNameFor(model => model.Data)
+            </th>
+           
+            <th>
+                @Html.DisplayNameFor(model => model.LuisResult)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QnAResult)
+            </th> 
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            if(String.IsNullOrWhiteSpace(item.Data))
+            {
+                continue;
+            }
+            <tr>
+               
+                <td>
+                    @Html.DisplayFor(modelItem => item.Data)
+                </td>
+             
+                <td>
+                    @Html.DisplayFor(modelItem => item.LuisResult)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QnAResult)
+                </td>
+              
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.RowKey, luisID = item.PartitionKey }, new { @class = "btn btn-primary" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

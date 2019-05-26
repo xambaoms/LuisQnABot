@@ -1,0 +1,72 @@
+﻿@model WebBotLuisQna.Table.Luis.LogEntity
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+<div class="alert alert-success" role="alert">
+    <h4 class="alert-heading">Luis</h4>
+    <p>
+        @ViewBag.LuisEntity.Nome
+    </p>
+
+</div>
+<div>
+    <h4>LogEntity</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PartitionKey)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PartitionKey)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RowKey)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RowKey)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Timestamp)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Timestamp)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ETag)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ETag)
+        </dd>
+        <hr />
+        <dt>
+            @Html.DisplayNameFor(model => model.Data)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Data)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LuisResult)
+        </dt>
+        <dd>
+            <textarea name="" id="myTextarea" cols="50" rows="18" readonly="readonly">
+                @Html.Raw(Model.LuisResult)
+            </textarea>          
+        </dd>
+        <dt>           
+            @Html.DisplayNameFor(model => model.QnAResult)
+        </dt>
+        <dd>
+            <textarea name="" id="myTextarea" cols="80" rows="10" readonly="readonly">
+                @Html.Raw(Model.QnAResult)
+            </textarea>
+        </dd>
+
+    </dl>
+</div>
+<div>
+    <a asp-action="Index" asp-route-id="@ViewBag.LuisEntity.AppId" class="btn btn-default">Back to List</a>
+</div>

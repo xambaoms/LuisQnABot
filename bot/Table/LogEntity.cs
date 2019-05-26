@@ -29,5 +29,7 @@ namespace LuisBot.Table
         public string LuisResult { get; set; }
 
         public string QnAResult { get; set; }
+
+        public string Feedback { get; set; }
     }
 }

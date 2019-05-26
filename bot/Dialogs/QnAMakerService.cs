@@ -24,6 +24,7 @@ namespace LuisBot.Dialogs
             knowledgeBaseId = kbId;
             endpointKey = endpointkey;
 
+            URI = String.Empty;
         }
         async Task<string> Post(string uri, string body)
         {
@@ -41,14 +42,16 @@ namespace LuisBot.Dialogs
         }
         public async Task<QnAAnswer> GetAnswer(string question)
         {
-            string uri = qnaServiceHostName + "/qnamaker/knowledgebases/" + knowledgeBaseId + "/generateAnswer";
+            URI = qnaServiceHostName + "/qnamaker/knowledgebases/" + knowledgeBaseId + "/generateAnswer";
             string questionJSON = @"{'question': '" + question + "'}";
 
-            var response = await Post(uri, questionJSON);
+            var response = await Post(URI, questionJSON);
 
             return JsonConvert.DeserializeObject<QnAAnswer>(response);
             
         }
+
+        public string URI { get; set; }
     }
 
 }

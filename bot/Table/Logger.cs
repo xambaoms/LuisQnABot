@@ -50,7 +50,8 @@ namespace LuisBot.Table
         public async Task LogarLuisQna(  string luisAppID, 
                             object context, 
                             object result,
-                            object qnaMakerAnswer)
+                            object qnaMakerAnswer,
+                            object feedback = null)
         {            
             try
             {
@@ -64,6 +65,10 @@ namespace LuisBot.Table
                 
                 if (qnaMakerAnswer!=null)
                     log.QnAResult = JsonConvert.SerializeObject(qnaMakerAnswer);
+
+                if (feedback != null)
+                    log.Feedback = JsonConvert.SerializeObject(feedback);
+
 
                 await table.Insert(log);
                 log = null;
